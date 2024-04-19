@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ DO CORPO HUMANO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300..1000;1,300..1000&display=swap" rel="stylesheet">
+    <style>
+       *{
+            text-align: center;
+            font-family: "Nunito", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: bold;
+            color: #33393a;
+            font-size: 14pt;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        body{
+            background-color: #fbfdfa;
+        }
+        section {
+            width: 668px;
+            padding: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {
+            font-weight: 1000;
+            line-height: 1;
+            color: #0e69bc;
+            margin-top: unset;
+        }
+        #inicio h1 {
+            font-size: 1.5rem;
+            margin-top: 1em;
+        }
+        h2, h3 {
+            font-weight: 900;
+        }
+        .d-none{
+            display: none;
+        }
+        .d-block{
+            display: block;
+        }
+        button {
+            width: 280px;
+            padding: 6pt 14pt;
+            text-transform: uppercase;
+            border-style: solid;
+            border-width: 2pt;
+            border-bottom-width: 5pt;
+            border-radius: 10px;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        fieldset {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            align-items: center;
+            border: unset;
+        }
+        label{
+            display: block;
+            width: 280px;
+            padding: 4pt 14pt;
+            border-style: solid;
+            border-width: 2pt;
+            border-bottom-width: 5pt;
+            border-radius: 10px;
+            font-weight: 800;
+            border-color: #ccc;
+        }
+        label:has(> input[name="radio"]:checked) {
+            border-color: #7ab2e7;
+        }
+        .btn-neutro{
+            background-color: #6eb2f1;
+            border-color: #8fc9ff;
+            border-bottom-color: #5aa1e4;
+        }
+        .btn-positivo{
+            background-color: #78c554;
+            border-color: #88c56b;
+            border-bottom-color: #5eaf39;
+            color: #222;
+        }
+        .btn-negativo{
+            background-color: #dd6969;
+            border-color: #f17272;
+            border-bottom-color: #c45252;
+            font-size: .9rem;
+        }
+        button[disabled=""]{
+            color: #666;
+            background-color: #cdcdcd;
+            border-color: #dedede;
+            border-bottom-color: #bcbcbc ;
+        }
+        #retentar {
+            font-size: .9rem;
+        }
+        .txt-positivo{
+            color: #4f942f;
+        }
+        .txt-negativo{
+            color: #cc3232;
+        }
+        #resultadoTxt {
+            font-size: 2rem;
+        }
+        #enunciado01 {
+            font-size: .9rem;
+        }
+        #enunciado02 {
+            font-weight: bolder;
+        }
+        #popUp {
+            position: fixed;
+            transform: translateX(50%);
+            right: 50%;
+            bottom: 0;
+            background: #efefef;
+            padding: 1rem 1.5rem;
+            padding-bottom: 2rem;
+            box-shadow: 0px 8px 32px 8px #0006;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section id="inicio">
+            <div>
+                <h1>QUIZ DO CORPO HUMANO</h1>
+            </div>
+            <div>
+                <h2>VAMOS BRINCAR DE DESCOBRIR O NOME DAS PARTES DO CORPO?</h2>
+                <h3>OBSERVE AS IMAGENS E CLIQUE NA RESPOSTA CORRETA.</h3>
+            </div>
+            <div>
+                <img src="./imagens/menino.gif" alt="Menino usando acenando." width="220">
+            </div>
+            <div>
+                <button id="comecar" class="btn-positivo" type="button">Começar</button>
+            </div>
+        </section>
+        <section id="quiz" class="d-none">
+            <div>
+                <h1>QUIZ DO CORPO HUMANO</h1>
+            </div>
+            <div>
+                <img id="figura" src="" alt="">
+            </div>
+                <form id="questao">
+                    <legend>
+                        <p id="enunciado01"></p>
+                        <p id="enunciado02">QUAL PARTE DO CORPO É ESSA?</p>
+                    </legend>
+                    <fieldset id="alternativas">
+                    
+                    </fieldset>
+                    <button id="verificar" class="btn-positivo" type="button" disabled>Verificar</button>
+                </form>
+            </div>
+        </section>
+        <section id="resultado" class="d-none">
+            <div>
+                <h1>QUIZ DO CORPO HUMANO</h1>
+            </div>
+            <p id="resultadoTxt"></p>
+            <button class="btn-positivo" onClick="window.location.reload();">Recomeçar</button>
+        </section>
+        <div id="popUp" class="d-none">
+            <p id="feedback"></p>
+            <fieldset>
+                <button id="prosseguir" class="btn-positivo"> Pŕoxima Pergunta</button>
+                <button id="retentar" class="btn-neutro">Responder novamente</button>
+                <button id="finalizar"  class="btn-neutro d-none"> Resultado</button>
+            </fieldset>
+        </div>
+    </main>
+</body>
+<script type="text/javascript" src="./questoes.js"></script>
+<script type="text/javascript">
+
+    const inicio = document.getElementById('inicio');
+    const quiz = document.getElementById('quiz');
+    const alternativas = document.getElementById('alternativas');
+    const popUp = document.getElementById('popUp');
+    const feedback = document.getElementById('feedback');
+    const verificar = document.getElementById('verificar');
+    const prosseguir = document.getElementById('prosseguir');
+    const finalizar = document.getElementById('finalizar');
+    const resultado = document.getElementById('resultado');
+
+    let questaoI = 0;
+    let questaoObj;
+    let enunciadoElm = document.getElementById('enunciado01');
+    let altCorreta;
+    let acertos = 0;
+    
+    function obterQuestao () {
+        questaoObj = questoes[questaoI];
+        alternativas.innerHTML = null;
+        enunciadoElm.innerText = questaoObj.enunciado;
+
+        let qtdAlts = questaoObj.alternativas.length;
+        let altInput;
+        let altObj;
+        let altLabel;
+        let resposta;
+
+        for (let i = 0; i < qtdAlts; i++){
+           altObj = questaoObj.alternativas[i];
+
+           altLabel = document.createElement('label');
+            
+           altInput = document.createElement('input');
+           altInput.setAttribute('type', 'radio');
+           altInput.setAttribute('name', 'radio');
+           altInput.setAttribute('value', altObj.id);
+
+           altLabel.appendChild(altInput);
+           altLabel.innerHTML += altObj.txt;
+           alternativas.appendChild(altLabel);
+
+           altCorreta = questaoObj.correta;
+        }
+
+        document.getElementById('figura').setAttribute('src',questaoObj.img);
+
+        questaoI++;
+    }
+    function proxQuestao () {
+        popUp.setAttribute('class', 'd-none');
+        obterQuestao();
+    }
+    function resNovamente () {
+        popUp.setAttribute('class', 'd-none');
+    }
+    function comecar () {
+        inicio.setAttribute('class', 'd-none');
+        quiz.setAttribute('class', 'd-block');
+        obterQuestao();
+    }
+    function verificarRes () {
+        verificar.setAttribute('disabled', '');
+
+        resposta = document.querySelector("input[name=radio]:checked").value;
+        if (resposta == altCorreta) {
+            feedback.innerText = fpositivo;
+            feedback.setAttribute('class','txt-positivo');
+            prosseguir.setAttribute('class', 'btn-positivo');
+            acertos++;
+        } else {
+            feedback.innerText = fnegativo;
+            feedback.setAttribute('class','txt-negativo');
+            prosseguir.setAttribute('class', 'btn-negativo');
+        }
+        popUp.setAttribute('class', 'd-block');
+
+        if (questaoI == questoes.length){
+            prosseguir.setAttribute('class', 'd-none');
+
+            if (resposta == altCorreta) {
+                finalizar.setAttribute('class', 'btn-positivo');
+            } else {
+                finalizar.setAttribute('class', 'btn-negativo');
+            }
+        }
+    }
+    function atvVerificar () {
+        verificar.removeAttribute('disabled');
+    }
+    function totalizarRes () {
+        document.getElementById('resultadoTxt').innerHTML = `Você acertou<br/>${acertos} de ${questoes.length}<br/>perguntas!`
+        
+        popUp.setAttribute('class', 'd-none');
+        quiz.setAttribute('class', 'd-none');
+        resultado.setAttribute('class', 'd-block');
+    }
+    document.getElementById('comecar').addEventListener('click', comecar);
+    document.getElementById('retentar').addEventListener('click', resNovamente);
+
+    prosseguir.addEventListener('click', proxQuestao);
+    verificar.addEventListener('click', verificarRes);
+    alternativas.addEventListener('click', atvVerificar);
+    finalizar.addEventListener('click', totalizarRes);
+</script>
+</html>

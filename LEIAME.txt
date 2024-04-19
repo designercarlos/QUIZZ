@@ -1,0 +1,10 @@
+Instruções:
+- Ao descompactar o aqruivo .zip, é muito importante manter todos os arquivos na mesma pasta;
+- Para utilizar a aplicação, abra o arquivo quiz-corpo-humano.html no navegador;
+- Remcomenda-se Mozilla Firefoz ou Google Chrome.
+- No arquivo .js é possível modificar e adicionar mais peguntas.
+
+Observações:
+Este quiz pode ser melhorado e reproveitado no fututo para outras atividades e temas (além do corpo humano), pois o sistema é sempre o mesmo independente do conteúdo.
+
+A primeira versão é focada nas funcionalidades principais e no visual básico, mas o quizz foi pensado com a possibilidade de se adicionar animações, sons, efeitos e mais funcionalidades.
